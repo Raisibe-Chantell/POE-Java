@@ -38,15 +38,15 @@ public class JAVAPOE {
         Login user = new Login(firstName, lastName, username, password, cell);
 
         // REGISTRATION LOOP - keeps asking until correct
-        while (!user.checkUserName()) {
+        while (!user.checkUserName(username)) {
             System.out.println("Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.");
             System.out.print("Enter username again: ");
             username = input.nextLine();
-            user.username = username;
+            user.userName = username;
         }
         System.out.println("Username successfully captured.");
       // validations for password
-        while (!user.checkPasswordComplexity()) {
+        while (!user.checkPasswordComplexity(password)) {
             System.out.println("Password is not correctly formatted, please ensure that the password "
                     + "contains at least eight characters,"
                     + " a capital letter,"
@@ -54,20 +54,19 @@ public class JAVAPOE {
                     + " a special character.");
             System.out.print("Enter password again: ");
             password = input.nextLine();
-            user.password = password;
+            user.pass = password;
         }
         System.out.println("Password successfully captured.");
         
         // Validation for cell phone number
-        while (!user.checkCellPhoneNumber()) {
+        while (!user.checkCellPhoneNumber(cell)) {
             System.out.println("Cell phone number incorrectly formatted or does not contain international code.");
             System.out.print("Enter cell number again: ");
             cell = input.nextLine();
-            user.cellNumber = cell;
+            user.cellPhoneNumber = cell;
         }
         System.out.println("Cell phone number successfully added.");
 
-        System.out.println(user.registerUser());
 
         // this is for login
         System.out.println("\n--- LOGIN ---");
