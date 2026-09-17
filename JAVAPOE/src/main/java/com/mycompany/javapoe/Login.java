@@ -29,7 +29,9 @@ public class Login {
 
     public boolean checkPasswordComplexity() {
         if (password.length() < 8) return false;
-        boolean cap = false, num = false, spec = false;
+        boolean cap = false;
+         boolean num = false;
+         boolean spec = false;
         for (char c : password.toCharArray()) {
             if (Character.isUpperCase(c)) cap = true;
             if (Character.isDigit(c)) num = true;
@@ -55,7 +57,7 @@ public class Login {
         return "Username successfully captured.\nPassword successfully captured.\nCell phone number successfully added.";
     }
 
-    // This is the method from YOUR PHOTO - the table
+    // This is the method
     public boolean loginUser(String enteredUser, String enteredPass) {
         return enteredUser.equals(username) && enteredPass.equals(password);
     }
