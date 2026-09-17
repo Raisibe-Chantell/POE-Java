@@ -13,21 +13,28 @@ import java.util.Scanner;
 public class JAVAPOE {
 
     public static void main(String[] args) { 
+        //Declarations of virables
+        String firstName;
+        String username;
+        String password;
+        String cell;
+        String lastName;
+        
         
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter First Name: ");
-        String firstName = input.nextLine();
+        firstName = input.nextLine();
         System.out.print("Enter Last Name: ");
-        String lastName = input.nextLine();
-
+        lastName = input.nextLine();
         System.out.print("Enter username: ");
-        String username = input.nextLine();
+        username = input.nextLine();
         System.out.print("Enter password: ");
-        String password = input.nextLine();
+        password = input.nextLine();
         System.out.print("Enter cell number: ");
-        String cell = input.nextLine();
-
+        cell = input.nextLine();
+        
+        //call the login method
         Login user = new Login(firstName, lastName, username, password, cell);
 
         // REGISTRATION LOOP - keeps asking until correct
@@ -62,7 +69,7 @@ public class JAVAPOE {
 
         System.out.println(user.registerUser());
 
-        // LOGIN PART - this is your photo table
+        // this is for login
         System.out.println("\n--- LOGIN ---");
         System.out.print("Enter username to login: ");
         String enteredUser = input.nextLine();
@@ -72,4 +79,4 @@ public class JAVAPOE {
         boolean loggedIn = user.loginUser(enteredUser, enteredPass);
         System.out.println(user.returnLoginStatus(loggedIn));
     }
-}
+} 
