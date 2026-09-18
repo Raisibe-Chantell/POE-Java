@@ -18,43 +18,43 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
 
     // ---------- Test data ----------
-    private static final String FIRST_NAME = "Kyle";
-    private static final String LAST_NAME  = "Smith";
+    public static final String FIRST_NAME = "Kyle";
+    public static final String LAST_NAME  = "Smith";
 
-    private static final String VALID_USERNAME   = "kyl_1";
-    private static final String INVALID_USERNAME = "kyle!!!!!!!";
+    public static final String VALID_USERNAME   = "kyl_1";
+    public static final String INVALID_USERNAME = "kyle!!!!!!!";
 
-    private static final String VALID_PASSWORD   = "Ch&&sec@ke99!";
-    private static final String INVALID_PASSWORD = "password";
+    public static final String VALID_PASSWORD   = "Ch&&sec@ke99!";
+    public static final String INVALID_PASSWORD = "password";
 
-    private static final String VALID_CELL   = "+27838968976";
-    private static final String INVALID_CELL = "08966553";
+    public static final String VALID_CELL   = "+27838968976";
+    public static final String INVALID_CELL = "08966553";
 
     // ---------- Expected system responses ----------
-    private static final String USERNAME_ERROR =
+    public static final String USERNAME_ERROR =
             "Username is not correctly formatted, please ensure that your username contains an "
             + "underscore and is no more than five characters in length.";
 
-    private static final String PASSWORD_ERROR =
+    public static final String PASSWORD_ERROR =
             "Password is not correctly formatted, please ensure that the password contains at "
             + "least eight characters, a capital letter, a number, and a special character.";
 
-    private static final String CELL_ERROR =
+    public static final String CELL_ERROR =
             "Cell phone number incorrectly formatted or does not contain international code.";
 
-    private static final String REGISTRATION_SUCCESS =
+    public static final String REGISTRATION_SUCCESS =
             "Username successfully captured.\n"
             + "Password successfully captured.\n"
             + "Cell phone number successfully added.";
 
-    private static final String LOGIN_SUCCESS_MESSAGE =
+    public static final String LOGIN_SUCCESS_MESSAGE =
             "Welcome " + FIRST_NAME + ", " + LAST_NAME + " it is great to see you again.";
 
-    private static final String LOGIN_FAILED_MESSAGE =
+    public static final String LOGIN_FAILED_MESSAGE =
             "Username or password incorrect, please try again.";
 
     /** A fully valid user, rebuilt before every test. */
-    private Login validUser;
+    public Login validUser;
 
     public LoginTest() {
     }
