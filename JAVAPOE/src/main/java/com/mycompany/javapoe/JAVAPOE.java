@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class JAVAPOE {
 
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         //Declarations of virables
         String firstName;
         String username;
