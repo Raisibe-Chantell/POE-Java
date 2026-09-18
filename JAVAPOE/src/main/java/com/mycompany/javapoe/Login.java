@@ -41,7 +41,7 @@ public class Login {
         return cap && num && spec;
     }
     
-    //reference : Oracle Java - Pattern class regex for validating international
+    //reference : Pattern class regex for validating international https://www.w3schools.com/jsref/jsref_obj_regexp.asp
     public boolean checkCellPhoneNumber(String cellPhoneNumber) {
         return cellPhoneNumber.matches("^\\+27[0-9]{9}$");
     }
