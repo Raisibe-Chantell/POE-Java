@@ -19,7 +19,6 @@ public class Message {
         this.messageID = generateID();
     }
 
-    // 1. generateID - 10 digit random
     public String generateID() {
         Random rand = new Random();
         String id = "";
@@ -33,16 +32,25 @@ public class Message {
         return messageID.length() <= 10;
     }
 
-    // 2. CHECK RECIPIENT
+    // FIXED 1 - exact strings from page 15 photo
     public String checkRecipientCell() {
         if (recipient.length() <= 13 && recipient.startsWith("+")) {
-            return "Cell phone number successfully captured";
+            return "Cell phone number successfully captured.";
         } else {
-            return "Cell phone number is incorrectly formatted or does not contain international code";
+            return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
         }
     }
 
-    // 3. createMessageHash 00:0:HITONIGHT
+    // ADDED - Required by page 15
+    public String checkMessageLength() {
+        if (message.length() <= 250) {
+            return "Message ready to send.";
+        } else {
+            int excess = message.length() - 250;
+            return "Message exceeds 250 characters by " + excess + ", please reduce the size.";
+        }
+    }
+
     public String createMessageHash() {
         String firstTwo = messageID.substring(0, 2);
         String[] words = message.trim().split("\\s+");
@@ -53,20 +61,18 @@ public class Message {
         return firstTwo + ":" + messageNumber + ":" + (firstWord + lastWord).toUpperCase();
     }
 
-    // 4. SentMessage - capital S
+    // FIXED 2 - don't count stored as sent
     public String SentMessage(int choice) {
         switch (choice) {
             case 1:
                 totalMessagesSent++;
                 totalMessages++;
-                return "Message successfully sent";
+                return "Message successfully sent.";
             case 2:
-                return "Press 0 to delete the message";
+                return "Press 0 to delete the message.";
             case 3:
                 storeMessage();
-                totalMessagesSent++;
-                totalMessages++;
-                return "Message successfully stored";
+                return "Message successfully stored.";
             default:
                 return "Invalid choice";
         }
@@ -86,7 +92,12 @@ public class Message {
         }
     }
 
-    public int returnTotalMessagess() {
+    // FIXED 3 - Must be static
+    public static int returnTotalMessagess() {
+        return totalMessagesSent;
+    }
+    
+    public static int returnTotalMessages() {
         return totalMessagesSent;
     }
 }
