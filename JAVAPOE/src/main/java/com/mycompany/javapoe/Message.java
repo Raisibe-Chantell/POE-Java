@@ -111,7 +111,7 @@ public class Message {
     // Uses try-catch for file handling errors
     public void storeMessage() {
         try {
-            FileWriter writer = new FileWriter("storedMessages.json", true); // true = append mode
+            FileWriter writer = new FileWriter("storedMessages.json", true);
             writer.write(printMessages() + "\n---\n"); // Write message with separator
             writer.close(); // Close file after writing
         } catch (IOException e) {
