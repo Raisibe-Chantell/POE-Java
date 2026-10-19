@@ -3,7 +3,6 @@
  */
 
 package com.mycompany.javapoe;
-
 import java.util.Scanner;
 
 /**
@@ -77,5 +76,56 @@ public class JAVAPOE {
 
         boolean loggedIn = user.loginUser(enteredUser, enteredPass);
         System.out.println(user.returnLoginStatus(loggedIn));
+        
+        
+    //PART 2
+        if (true) {
+            // --- START OF PART 2 - QUICKCHAT ---
+            System.out.println("\nWelcome to QuickChat!");
+            
+            System.out.print("How many messages do you wish to enter? ");
+            int numMessages = Integer.parseInt(input.nextLine());
+            
+            for (int i = 1; i <= numMessages; i++) {
+                System.out.println("\n--- Message " + i + " ---");
+                
+                System.out.print("Enter recipient cell (with +): ");
+                String recipient = input.nextLine();
+                
+                System.out.print("Enter your message: ");
+                String text = input.nextLine();
+
+                Message msg = new Message(recipient, text, i);
+
+                if (text.length() > 250) {
+                    System.out.println("Message exceeds 250 characters by " + (text.length() - 250) + ", please reduce size.");
+                    i--;
+                    continue;
+                }
+
+                String cellCheck = msg.checkRecipientCell();
+                System.out.println(cellCheck);
+                
+                if (cellCheck.contains("incorrectly formatted")) {
+                    System.out.println("Skipping this message.");
+                    continue;
+                }
+
+                System.out.println("Message Hash: " + msg.createMessageHash());
+                System.out.println(msg.printMessages());
+
+                System.out.println("1) Send Message");
+                System.out.println("2) Disregard Message");
+                System.out.println("3) Store Message");
+                System.out.print("Choose: ");
+                int choice = Integer.parseInt(input.nextLine());
+
+                String result = msg.SentMessage(choice);
+                System.out.println(result);
+                System.out.println("Total messages sent: " + msg.returnTotalMessagess());
+            }
+            // --- END OF PART 2 ---
+        }
     }
-} 
+}
+    
