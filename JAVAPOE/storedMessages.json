@@ -3,4 +3,8 @@
 "message":"Where are you? You are late! I have asked you to be on time.",
 "hash":"22:1:LATE"},
 {"id":"5555555555","sender":"","recipient":"+27838884567","message":"Ok, I am leaving without you.","hash":"55:4:YOU."}
-]
+]MessageID: 1905469372
+Message Hash: 19:0:TESTTEST
+Recipient: +27718693002
+Message: Test
+---
