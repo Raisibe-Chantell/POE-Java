@@ -363,9 +363,9 @@ public class JAVAPOE {
             }
             // End of main menu switch
         }
-        // End of main menu while loop - user typed "3" to quit
+        // End of main menu 
 
-        // Close the Scanner to free up memory - good practice
+        // Close the Scanner to free up memory
         input.close();
     }
     // End of main method
