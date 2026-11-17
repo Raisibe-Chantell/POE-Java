@@ -7,7 +7,7 @@ import java.io.*;
 // Import nio.file.* so we can read and write the JSON file
 import java.nio.file.*;
 
-// Author: [Your Name] - [Student Number]
+// Author: [APHANE RAISIBE CHANTELL] - [ST10507551]
 // PROG5121 POE Part 3 - Message Manager
 // This class holds ALL the parallel arrays and ALL the methods for Part 3
 // The main class JAVAPOE.java calls these methods
