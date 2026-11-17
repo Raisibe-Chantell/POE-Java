@@ -4,6 +4,7 @@
 
 package com.mycompany.javapoe;
 import java.util.Scanner;
+ import javax.swing.JOptionPane;
 
 /**
  *
@@ -154,12 +155,108 @@ public class JAVAPOE {
                     
                     // Display total number of messages sent so far using static method
                     System.out.println("Total messages sent: " + Message.returnTotalMessagess());
+                    
+                      // --- END OF PART 2 --  
+                  
+// PART 3 START - This is the NEW 4th Menu for Stored Messages (Required for POE)
+
+        // Create a MessageManager object - this holds all our messages and methods
+        MessageManager manager = new MessageManager();
+
+        // Task 1.2: Load the 5 test messages into the arrays
+        manager.populateTestData();
+
+        // Task 1.3 / Part 3: Show menu until user chooses to quit
+        // We use a while loop so the menu keeps showing after each choice
+        String choice3 = "";
+
+        // Loop until user types q or clicks Cancel
+        while (!choice3.equalsIgnoreCase("q")) {
+
+            // Show the menu - this is exactly what the POE asks for in Part 3
+            choice3 = JOptionPane.showInputDialog(
+                    "Choose an option:\n"
+                    + "a) Display sender and recipient of stored messages\n"
+                    + "b) Display longest stored message\n"
+                    + "c) Search by Message ID\n"
+                    + "d) Search by recipient\n"
+                    + "e) Delete by hash\n"
+                    + "f) Display full report of sent messages\n"
+                    + "q) Quit");
+
+            // If user clicks Cancel, JOptionPane returns null - stop the program
+            if (choice3 == null) {
+                break;
+            }
+
+            // Use switch to run the correct method for each letter
+            switch (choice3.toLowerCase()) {
+
+                // Task 2a: Display sender and recipient of stored messages
+                case "a":
+                    // Calls displaySenderAndRecipient() in MessageManager
+                    JOptionPane.showMessageDialog(null, manager.displaySenderAndRecipient());
+                    break;
+
+                // Task 2b: Display longest stored message
+                case "b":
+                    // Calls getLongestMessage() in MessageManager
+                    JOptionPane.showMessageDialog(null, "Longest message:\n" + manager.getLongestMessage());
+                    break;
+
+                // Task 2c: Search by Message ID
+                case "c":
+                    // POE test: Search for 0838884567 - should return "It is dinner time!"
+                    String id = JOptionPane.showInputDialog("Enter Message ID to search for (try 0838884567):");
+                    if (id != null) {
+                        JOptionPane.showMessageDialog(null, manager.searchByMessageID(id));
+                    }
+                    break;
+
+                // Task 2d: Search by recipient
+                case "d":
+                    // POE test: Search for +27838884567 - should return Message 2 + Message 5
+                    String rec = JOptionPane.showInputDialog("Enter recipient to search for (try +27838884567):");
+                    if (rec != null) {
+                        JOptionPane.showMessageDialog(null, manager.searchByRecipient(rec));
+                    }
+                    break;
+
+                // Task 2e: Delete by hash
+                case "e":
+                    // POE test: Delete 00:1:LATE - should delete Message 2
+                    String hash = JOptionPane.showInputDialog("Enter hash to delete (try 00:1:LATE):");
+                    if (hash != null) {
+                        JOptionPane.showMessageDialog(null, manager.deleteByHash(hash));
+                    }
+                    break;
+
+                // Task 2f: Display full report of SENT messages
+                case "f":
+                    // Calls getFullReport() - shows Hash, Recipient, Message for Sent only
+                    JOptionPane.showMessageDialog(null, manager.getFullReport());
+                    break;
+
+                // Quit option
+                case "q":
+                    JOptionPane.showMessageDialog(null, "Goodbye!");
+                    break;
+
+                // If user types anything else
+                default:
+                    JOptionPane.showMessageDialog(null, "Invalid option. Please choose a, b, c, d, e, f or q.");
+                    break;
+            }
+        }
                 }
             }
-          }
-        
         }
-       }
+        }
     }
+}
+// PART 3 END
+
+            
+
         
-        // --- END OF PART 2 --  
+       
