@@ -4,7 +4,7 @@
 
 package com.mycompany.javapoe;
 import java.util.Scanner;
- import javax.swing.JOptionPane;
+ 
 
 /**
  *
@@ -160,100 +160,221 @@ public class JAVAPOE {
                   
 // PART 3 START - This is the NEW 4th Menu for Stored Messages (Required for POE)
 
-        // Create a MessageManager object - this holds all our messages and methods
+  
+        // Create a MessageManager object - this object holds all our arrays and all our methods
+        // We use this object to call methods like displaySenderAndRecipient(), getLongestMessage(), etc.
         MessageManager manager = new MessageManager();
 
-        // Task 1.2: Load the 5 test messages into the arrays
-        manager.populateTestData();
+        // Try to load any messages that were saved last time in the storedMessages.json file
+        // If the file does not exist yet, this method will just do nothing
+        manager.loadStoredMessagesFromJSON();
 
-        // Task 1.3 / Part 3: Show menu until user chooses to quit
-        // We use a while loop so the menu keeps showing after each choice
-        String choice3 = "";
+        // If the storedMessages array is empty (meaning JSON file was empty or did not exist)
+        // Then we load the POE test data so we can test menu option 4
+        // This is only for testing - in real life the user would store their own messages
+        if (manager.storedMessages.isEmpty()) {
+            manager.populateTestData();
+        }
 
-        // Loop until user types q or clicks Cancel
-        while (!choice3.equalsIgnoreCase("q")) {
+        // Ask the user to enter their own cell number - this will be the sender for all messages
+        System.out.print("Enter your cell number (sender): ");
 
-            // Show the menu - this is exactly what the POE asks for in Part 3
-            choice3 = JOptionPane.showInputDialog(
-                    "Choose an option:\n"
-                    + "a) Display sender and recipient of stored messages\n"
-                    + "b) Display longest stored message\n"
-                    + "c) Search by Message ID\n"
-                    + "d) Search by recipient\n"
-                    + "e) Delete by hash\n"
-                    + "f) Display full report of sent messages\n"
-                    + "q) Quit");
+        // Read the sender number the user typed and store it in a variable called 'sender'
+        String sender = input.nextLine();
 
-            // If user clicks Cancel, JOptionPane returns null - stop the program
-            if (choice3 == null) {
-                break;
-            }
+        // Give the sender number to the manager, so the manager can save it with every stored message
+        manager.setSender(sender);
 
-            // Use switch to run the correct method for each letter
-            switch (choice3.toLowerCase()) {
+        // Create a String variable called 'choice' to store the user's main menu choice
+        // We start it as empty "" so the while loop will run the first time
+        String mainChoice = "";
 
-                // Task 2a: Display sender and recipient of stored messages
-                case "a":
-                    // Calls displaySenderAndRecipient() in MessageManager
-                    JOptionPane.showMessageDialog(null, manager.displaySenderAndRecipient());
+        // While loop - keep showing the main menu until the user types "3" to Quit
+        // As long as choice is NOT "3", keep looping
+        while (!mainChoice.equals("3")) {
+
+            // Print a blank line for neatness, then print the main menu heading
+            System.out.println("\n--- QuickChat ---");
+
+            // Print option 1 - Send Messages (This is from Part 2)
+            System.out.println("1) Send Messages");
+
+            // Print option 2 - Show Recently Sent Messages (This is from Part 2)
+            System.out.println("2) Show Recently Sent Messages");
+
+            // Print option 3 - Quit the program
+            System.out.println("3) Quit");
+
+            // Print option 4 - Stored Messages (This is NEW for Part 3)
+            // This is the 4th main menu option required by the POE instructions
+            System.out.println("4) Stored Messages");
+
+            // Ask the user to enter their choice
+            System.out.print("Enter choice: ");
+
+            // Read what the user typed and save it in 'choice'
+            mainChoice = input.nextLine();
+
+            // Switch statement - checks what the user typed and runs the matching case
+            switch (mainChoice) {
+
+                // If user typed "1"
+                case "1":
+                    // For now we just print a message - your Part 2 Send Messages code goes here
+                    System.out.println("Send Messages - Part 2 code goes here");
+                    // Break stops the switch and goes back to the top of the while loop
                     break;
 
-                // Task 2b: Display longest stored message
-                case "b":
-                    // Calls getLongestMessage() in MessageManager
-                    JOptionPane.showMessageDialog(null, "Longest message:\n" + manager.getLongestMessage());
+                // If user typed "2"
+                case "2":
+                    // Print a heading
+                    System.out.println("Recently Sent Messages:");
+                    // Print the whole sentMessages array - this shows all messages with flag "Sent"
+                    System.out.println(manager.sentMessages);
                     break;
 
-                // Task 2c: Search by Message ID
-                case "c":
-                    // POE test: Search for 0838884567 - should return "It is dinner time!"
-                    String id = JOptionPane.showInputDialog("Enter Message ID to search for (try 0838884567):");
-                    if (id != null) {
-                        JOptionPane.showMessageDialog(null, manager.searchByMessageID(id));
+                // If user typed "3"
+                case "3":
+                    // Print goodbye message - the while loop will now stop because choice == "3"
+                    System.out.println("Goodbye!");
+                    break;
+
+                // If user typed "4" - THIS IS PART 3
+                case "4":
+                    // Create a new variable called 'choice3' for the Stored Messages sub-menu
+                    // We start it as "" so the loop will run
+                    String choice3 = "";
+
+                    // While loop for Stored Messages menu - keep looping until user types "q" to quit
+                    // We use equalsIgnoreCase so "Q" and "q" both work
+                    while (!choice3.equalsIgnoreCase("q")) {
+
+                        // Print the Stored Messages sub-menu heading
+                        System.out.println("\n--- Stored Messages ---");
+
+                        // Option a - Display sender and recipient of all stored messages (POE Question 2a)
+                        System.out.println("a) Display sender and recipient of all stored messages");
+
+                        // Option b - Display the longest stored message (POE Question 2b)
+                        System.out.println("b) Display longest stored message");
+
+                        // Option c - Search for a message by its Message ID (POE Question 2c)
+                        System.out.println("c) Search for a message ID");
+
+                        // Option d - Search for all messages sent to one recipient (POE Question 2d)
+                        System.out.println("d) Search for all messages for a recipient");
+
+                        // Option e - Delete a message using its message hash (POE Question 2e)
+                        System.out.println("e) Delete a message using message hash");
+
+                        // Option f - Display a full report of all stored messages (POE Question 2f)
+                        System.out.println("f) Display full report");
+
+                        // Option q - Quit back to the main menu
+                        System.out.println("q) Quit to main menu");
+
+                        // Ask the user to enter their choice for the sub-menu
+                        System.out.print("Enter choice: ");
+
+                        // Read what the user typed for the sub-menu
+                        choice3 = input.nextLine();
+
+                        // Switch for the sub-menu - we use toLowerCase() so "A" and "a" both work
+                        switch (choice3.toLowerCase()) {
+
+                            // If user typed "a"
+                            case "a":
+                                // Call the method displaySenderAndRecipient() from MessageManager
+                                // This method loops through the parallel arrays and returns sender + recipient
+                                System.out.println(manager.displaySenderAndRecipient());
+                                break;
+
+                            // If user typed "b"
+                            case "b":
+                                // Call the method getLongestMessage() - it finds the longest message in the storedMessages array
+                                System.out.println("Longest message: " + manager.getLongestMessage());
+                                break;
+
+                            // If user typed "c"
+                            case "c":
+                                // Ask the user to enter the Message ID they want to search for
+                                System.out.print("Enter Message ID: ");
+
+                                // Read the ID the user typed
+                                String id = input.nextLine();
+
+                                // Call searchByMessageID() and print the result (Recipient + Message)
+                                System.out.println(manager.searchByMessageID(id));
+                                break;
+
+                            // If user typed "d"
+                            case "d":
+                                // Ask the user to enter the recipient number they want to search for
+                                System.out.print("Enter recipient: ");
+
+                                // Read the recipient the user typed
+                                String rec = input.nextLine();
+
+                                // Call searchByRecipient() - it searches the parallel arrays for that recipient
+                                System.out.println(manager.searchByRecipient(rec));
+                                break;
+
+                            // If user typed "e"
+                            case "e":
+                                // Ask the user to enter the hash of the message they want to delete
+                                System.out.print("Enter hash to delete: ");
+
+                                // Read the hash the user typed
+                                String hash = input.nextLine();
+
+                                // Call deleteByHash() - it removes the message from ALL parallel arrays at the same index
+                                System.out.println(manager.deleteByHash(hash));
+                                break;
+
+                            // If user typed "f"
+                            case "f":
+                                // Call getFullReport() - it prints Hash, Recipient and Message for every stored message
+                                System.out.println(manager.getFullReport());
+                                break;
+
+                            // If user typed "q"
+                            case "q":
+                                // Print message to show we are going back to main menu
+                                // The while loop will now stop because choice3 == "q"
+                                System.out.println("Back to main menu.");
+                                break;
+
+                            // If user typed anything else
+                            default:
+                                // Tell the user their choice was invalid
+                                System.out.println("Invalid option. Try again.");
+                                break;
+                        }
+                        // End of Stored Messages sub-menu switch
                     }
+                    // End of Stored Messages while loop
                     break;
 
-                // Task 2d: Search by recipient
-                case "d":
-                    // POE test: Search for +27838884567 - should return Message 2 + Message 5
-                    String rec = JOptionPane.showInputDialog("Enter recipient to search for (try +27838884567):");
-                    if (rec != null) {
-                        JOptionPane.showMessageDialog(null, manager.searchByRecipient(rec));
-                    }
-                    break;
-
-                // Task 2e: Delete by hash
-                case "e":
-                    // POE test: Delete 00:1:LATE - should delete Message 2
-                    String hash = JOptionPane.showInputDialog("Enter hash to delete (try 00:1:LATE):");
-                    if (hash != null) {
-                        JOptionPane.showMessageDialog(null, manager.deleteByHash(hash));
-                    }
-                    break;
-
-                // Task 2f: Display full report of SENT messages
-                case "f":
-                    // Calls getFullReport() - shows Hash, Recipient, Message for Sent only
-                    JOptionPane.showMessageDialog(null, manager.getFullReport());
-                    break;
-
-                // Quit option
-                case "q":
-                    JOptionPane.showMessageDialog(null, "Goodbye!");
-                    break;
-
-                // If user types anything else
+                // If user typed anything else in main menu (not 1,2,3,4)
                 default:
-                    JOptionPane.showMessageDialog(null, "Invalid option. Please choose a, b, c, d, e, f or q.");
+                    // Tell the user their choice was invalid
+                    System.out.println("Invalid choice. Try again.");
                     break;
             }
+            // End of main menu switch
+        }
+        // End of main menu while loop - user typed "3" to quit
+
+        // Close the Scanner to free up memory - good practice
+        input.close();
+    }
+    // End of main method
+}
+// End of JAVAPOE class
         }
                 }
             }
         }
-        }
-    }
-}
 // PART 3 END
 
             
